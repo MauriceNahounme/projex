@@ -119,20 +119,20 @@ export const projects: ProjectModel[] = [
   },
   {
     id: '9',
-    name: 'Projet 8',
+    name: 'Projet 9',
     status: ProjectStatusEnum.DELETED,
   },
   {
     id: '10',
-    name: 'Projet 8',
+    name: 'Projet 10',
     status: ProjectStatusEnum.DELETED,
     affairs: [
       {
-        id: 15,
+        id: 16,
         name: 'Affaire 10.1',
       },
       {
-        id: 15,
+        id: 17,
         name: 'Affaire 10.2',
       }
     ]

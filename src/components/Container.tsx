@@ -47,12 +47,15 @@ const Container: React.FC<ContainerProps> = ({onConfirmSelection}) => {
   const [selectedProjects, setSelectedProjects] = useState<ProjectModel[]>([]);
   const [selectedBusinesses, setSelectedBusinesses] = useState<AffairModel[]>([]);
   const [current, setCurrent] = useState('projet');
+  const [seachValue, setSeachValue] = useState('');
 
   const onClick: MenuProps['onClick'] = (e: any) => {
     setCurrent(e.key);
   };
 
-  const onSearch = (value: string) => console.log(value);
+  const handleSeach = (e: any) => {
+    setSeachValue(e.target.value);
+  };  
 
   const handleProjectSelection = (projet: ProjectModel) => {    
     const isSelected = selectedProjects.some((p) => p.id === projet.id);    
@@ -82,7 +85,7 @@ const Container: React.FC<ContainerProps> = ({onConfirmSelection}) => {
       selectedBusinesses,
     };
     onConfirmSelection(selection);
-  };
+  };  
 
   return (
     <div className="app">
@@ -91,14 +94,13 @@ const Container: React.FC<ContainerProps> = ({onConfirmSelection}) => {
       </div>
     
       <div className="col-6 container">
-        <Search placeholder="Rechercher..." allowClear onSearch={onSearch} />
+        <Search placeholder="Rechercher..." allowClear onChange={handleSeach} />
 
         {
           current === "projet" && (
           <ul className="container-list-container">
             {
-              projects.map((projet: any) => {
-                
+              projects.filter((projet) => projet.name.includes(seachValue)).map((projet: any) => {
                 return (
                   <li key={projet.id} className="container-list"
                   onClick={() => {handleProjectSelection(projet)}}
@@ -116,16 +118,18 @@ const Container: React.FC<ContainerProps> = ({onConfirmSelection}) => {
           current === "business" && (
           <ul className="container-list-container">
             {
-              projects.map((projet: any) => 
-                projet?.affairs?.map((business: any, index: number) => {
-                  return (
-                    <li key={index} className="container-list" 
-                    onClick={() => handleBusinessSelection(business)}>
-                      {!selectedBusinesses.includes(business) ? <PlusCircleOutlined rev='' style={{position: 'relative', bottom: "3px"}} /> : <MinusCircleOutlined rev='' style={{position: 'relative', bottom: "3px", opacity: "0.5"}} />} {business.name}
-                    </li>
-                  )
-                })
-              )
+              projects
+              .map((projet: any) => 
+              projet?.affairs?.filter((affair: any) => affair.name.includes(seachValue))
+              .map((business: any, index: number) => {
+                return (
+                  <li key={business.id} className="container-list" 
+                  onClick={() => handleBusinessSelection(business)}>
+                    {!selectedBusinesses.includes(business) ? <PlusCircleOutlined rev='' style={{position: 'relative', bottom: "3px"}} /> : <MinusCircleOutlined rev='' style={{position: 'relative', bottom: "3px", opacity: "0.5"}} />} {business.name}
+                  </li>
+                )
+              })
+            )
             }
           </ul>
           )

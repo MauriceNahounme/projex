@@ -1,3 +1,7 @@
+# Resultat
+
+![Texte alternatif](./projex.png "Capture d'écran")
+
 # Contexte
 
 Vous développez une application de gestion de projets sur laquelle des utilisateurs peuvent créer des projets.
@@ -13,11 +17,12 @@ Vous avez besoin d'un composant permettant de sélectionner des projets et des a
 - Un résumé de la sélection doit être affiché,
 - Un bouton "Confirmer" retournera un objet contenant toute la sélection.
 
-Un designer vous a créé une UI (cf. ui.png) qui vous reste à implémenter. 
+Un designer vous a créé une UI (cf. ui.png) qui vous reste à implémenter.
 
 ⚠️ Ignorez les onglets Entités et Clients dans le design. ⚠️
 
 # Note
+
 - Le but n'est pas de finir entièrement le composant en 2 heures. Ce n'est pas faisable.
 - L'objectif est de jauger votre capacité à aborder un problème et de structurer une solution.
 - Concentrez-vous en priorité sur l'algorithmie et les fonctionnalités plutôt que le design UI et le CSS.

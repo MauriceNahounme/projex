@@ -49,6 +49,9 @@ const Container: React.FC<ContainerProps> = ({onConfirmSelection}) => {
   const [current, setCurrent] = useState('projet');
   const [seachValue, setSeachValue] = useState('');
 
+  console.log("selec", selectedProjects);
+  
+
   const onClick: MenuProps['onClick'] = (e: any) => {
     setCurrent(e.key);
   };
@@ -62,9 +65,10 @@ const Container: React.FC<ContainerProps> = ({onConfirmSelection}) => {
 
     if (isSelected) {      
       const updatedProjects = selectedProjects.filter((p) => p.id !== projet.id);
-      setSelectedProjects(updatedProjects);
-    } else {      
-      setSelectedProjects([...selectedProjects, projet]);
+      setSelectedProjects(updatedProjects);      
+    } else {
+      const { affairs, ...updatedProjects } = projet;      
+      setSelectedProjects([...selectedProjects, updatedProjects]);
     }    
   }
 
@@ -100,7 +104,7 @@ const Container: React.FC<ContainerProps> = ({onConfirmSelection}) => {
           current === "projet" && (
           <ul className="container-list-container">
             {
-              projects.filter((projet) => projet.name.includes(seachValue)).map((projet: any) => {
+              projects.filter((projet) => projet.name.includes(seachValue)).map((projet: ProjectModel) => {       
                 return (
                   <li key={projet.id} className="container-list"
                   onClick={() => {handleProjectSelection(projet)}}
@@ -119,9 +123,9 @@ const Container: React.FC<ContainerProps> = ({onConfirmSelection}) => {
           <ul className="container-list-container">
             {
               projects
-              .map((projet: any) => 
-              projet?.affairs?.filter((affair: any) => affair.name.includes(seachValue))
-              .map((business: any, index: number) => {
+              .map((projet: ProjectModel) => 
+              projet?.affairs?.filter((affair: AffairModel) => affair.name.includes(seachValue))
+              .map((business: AffairModel) => {
                 return (
                   <li key={business.id} className="container-list" 
                   onClick={() => handleBusinessSelection(business)}>
@@ -139,16 +143,16 @@ const Container: React.FC<ContainerProps> = ({onConfirmSelection}) => {
       <div className="selection col-3">
         <h4>Sélection</h4>
         <h5 className="title">{selectedProjects.length} Projets</h5>
-        {selectedProjects.map((project, index) => {
+        {selectedProjects.map((project: ProjectModel, index: number) => {
           return (
-            <h6 key={index}>{project.name}</h6>
+            <p key={index}>{project.name}</p>
           )
         })}
 
       <h5 className="title">{selectedBusinesses.length} Affaires</h5>
-        {selectedBusinesses.map((business, index) => {
+        {selectedBusinesses.map((business: AffairModel, index: number) => {
           return (
-            <h6 key={index}>{business.name}</h6>
+            <p key={index}>{business.name}</p>
           )
         })}
         <Button type="primary" className="btn-confirm" 

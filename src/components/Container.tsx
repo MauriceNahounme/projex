@@ -104,12 +104,13 @@ const Container: React.FC<ContainerProps> = ({onConfirmSelection}) => {
           current === "projet" && (
           <ul className="container-list-container">
             {
-              projects.filter((projet) => projet.name.includes(seachValue)).map((projet: ProjectModel) => {       
+              projects.filter((projet) => projet.name.includes(seachValue)).map((projet: ProjectModel) => {
+                const isSelected = selectedProjects.some((p) => p.id === projet.id);   
                 return (
                   <li key={projet.id} className="container-list"
                   onClick={() => {handleProjectSelection(projet)}}
                   >
-                    {!selectedProjects.includes(projet) ? <PlusCircleOutlined rev='' style={{position: 'relative', bottom: "3px"}} /> : <MinusCircleOutlined rev='' style={{position: 'relative', bottom: "3px", opacity: "0.5"}} />} {projet.name}
+                    {!isSelected ? <PlusCircleOutlined rev='' style={{position: 'relative', bottom: "3px"}} /> : <MinusCircleOutlined rev='' style={{position: 'relative', bottom: "3px", opacity: "0.5"}} />} {projet.name}
                   </li>
                 )
               })

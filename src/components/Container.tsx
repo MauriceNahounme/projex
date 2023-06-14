@@ -47,10 +47,7 @@ const Container: React.FC<ContainerProps> = ({onConfirmSelection}) => {
   const [selectedProjects, setSelectedProjects] = useState<ProjectModel[]>([]);
   const [selectedBusinesses, setSelectedBusinesses] = useState<AffairModel[]>([]);
   const [current, setCurrent] = useState('projet');
-  const [seachValue, setSeachValue] = useState('');
-
-  console.log("selec", selectedProjects);
-  
+  const [seachValue, setSeachValue] = useState('');  
 
   const onClick: MenuProps['onClick'] = (e: any) => {
     setCurrent(e.key);
@@ -60,23 +57,23 @@ const Container: React.FC<ContainerProps> = ({onConfirmSelection}) => {
     setSeachValue(e.target.value);
   };  
 
-  const handleProjectSelection = (projet: ProjectModel) => {    
-    const isSelected = selectedProjects.some((p) => p.id === projet.id);    
+  const handleProjectSelection = (projet: ProjectModel) => {
+    const isSelected = selectedProjects.some(p => p.id === projet.id);    
 
-    if (isSelected) {      
-      const updatedProjects = selectedProjects.filter((p) => p.id !== projet.id);
-      setSelectedProjects(updatedProjects);      
+    if (isSelected) {
+      const updatedProjects = selectedProjects.filter((project) => project.id !== projet.id);      
+      setSelectedProjects(updatedProjects)
     } else {
-      const { affairs, ...updatedProjects } = projet;      
+      const { affairs, ...updatedProjects } = projet;
       setSelectedProjects([...selectedProjects, updatedProjects]);
-    }    
+    }
   }
 
   const handleBusinessSelection = (business: AffairModel) => {
-    const isSelected = selectedBusinesses.some((p) => p.id === business.id);
+    const isSelected = selectedBusinesses.some((b) => b.id === business.id);
 
     if (isSelected) {
-      const updateBusinesses = selectedBusinesses.filter((p) => p.id === business.id);
+      const updateBusinesses = selectedBusinesses.filter((b) => b.id !== business.id);
       setSelectedBusinesses(updateBusinesses);
     } else {
       setSelectedBusinesses([...selectedBusinesses, business]);
@@ -85,8 +82,8 @@ const Container: React.FC<ContainerProps> = ({onConfirmSelection}) => {
 
   const handleConfirmSelection = () => {
     const selection: SelectionProps = {
-      selectedProjects,
-      selectedBusinesses,
+      selectedProjects: selectedProjects,
+      selectedBusinesses: selectedBusinesses
     };
     onConfirmSelection(selection);
   };  

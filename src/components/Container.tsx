@@ -141,18 +141,27 @@ const Container: React.FC<ContainerProps> = ({onConfirmSelection}) => {
       <div className="selection col-3">
         <h4>Sélection</h4>
         <h5 className="title">{selectedProjects.length} Projets</h5>
+        <ul className="container-list-container">
         {selectedProjects.map((project: ProjectModel, index: number) => {
+          const isSelected = selectedProjects.some((p) => p.id === project.id);
           return (
-            <p key={index}>{project.name}</p>
+            <li className="container-list" key={index} onClick={() => {handleProjectSelection(project)}}>
+              {!isSelected ? <PlusCircleOutlined rev='' style={{position: 'relative', bottom: "3px"}} /> : <MinusCircleOutlined rev='' style={{position: 'relative', bottom: "3px", opacity: "0.5"}} />} {project.name}
+              </li>
           )
         })}
+        </ul>
 
       <h5 className="title">{selectedBusinesses.length} Affaires</h5>
+        <ul className="container-list-container">
         {selectedBusinesses.map((business: AffairModel, index: number) => {
           return (
-            <p key={index}>{business.name}</p>
+            <li className='container-list' key={index} onClick={() => handleBusinessSelection(business)}>
+              {!selectedBusinesses.includes(business) ? <PlusCircleOutlined rev='' style={{position: 'relative', bottom: "3px"}} /> : <MinusCircleOutlined rev='' style={{position: 'relative', bottom: "3px", opacity: "0.5"}} />} {business.name}
+              </li>
           )
         })}
+        </ul>
         <Button type="primary" className="btn-confirm" 
         onClick={handleConfirmSelection}>Confirmer</Button>
       </div>

@@ -29,6 +29,10 @@
   padding: 10px;
 }
 
+.selection-list {
+  list-style-type: none;
+}
+
 .container-list:hover {
   cursor: pointer;
   background-color: #E6F4FF;
